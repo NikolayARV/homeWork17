@@ -7,5 +7,5 @@ public interface IngredientsServices {
 
     Ingredients addIngredient(Ingredients ingredients);
 
-    Ingredients getByIdIngredient(int number);
+    Ingredients getByIdIngredient(int id);
 }
