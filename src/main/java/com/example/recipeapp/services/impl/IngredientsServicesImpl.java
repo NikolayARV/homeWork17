@@ -6,19 +6,45 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+
 @Service
 public class IngredientsServicesImpl implements IngredientsServices {
     private Map<Integer, Ingredients> ingredientsMap = new HashMap<>();
-    private int number = 1;
+    private int id = 1;
 
     @Override
 
     public Ingredients addIngredient(Ingredients ingredients) {
-        return ingredientsMap.put(number++, ingredients);
+        return ingredientsMap.put(id++, ingredients);
     }
 
     @Override
-    public Ingredients getByIdIngredient(int number) {
-        return ingredientsMap.get(number);
+    public Ingredients getByIdIngredient(int id) {
+        return ingredientsMap.get(id);
+    }
+
+    @Override
+    public Ingredients editIngredients(int id, Ingredients newIngredients) {
+        if (ingredientsMap.containsKey(id)) {
+            ingredientsMap.put(id, newIngredients);
+            return newIngredients;
+        }
+        return null;
+    }
+
+    @Override
+    public boolean deleteIngredient(int id) {
+        if (ingredientsMap.containsKey(id)) {
+            ingredientsMap.remove(id);
+            return true;
+        }
+        return false;
+    }
+    @Override
+    public void getAllIngredient () {
+        for (Ingredients ingredients : ingredientsMap.values()) {
+            System.out.println(ingredients);
+        }
+
     }
 }
