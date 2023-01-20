@@ -2,7 +2,6 @@ package com.example.recipeapp.controllers;
 
 import com.example.recipeapp.model.Ingredients;
 import com.example.recipeapp.services.IngredientsServices;
-import com.example.recipeapp.services.RecipeServices;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,5 +27,27 @@ public class IngredientsController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(ingredients);
+    }
+
+    @GetMapping
+    public ResponseEntity<Void> getAllIdIngredient() {
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Ingredients> editIngredients(@PathVariable int id, @RequestBody Ingredients newIngredient) {
+        Ingredients ingredients = ingredientsServices.editIngredients(id, newIngredient);
+        if (ingredients == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(ingredients);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteIngredient(@PathVariable int id) {
+        if (ingredientsServices.deleteIngredient(id)) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }

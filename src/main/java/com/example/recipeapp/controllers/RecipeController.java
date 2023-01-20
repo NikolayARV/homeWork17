@@ -29,4 +29,28 @@ public class RecipeController {
         }
         return ResponseEntity.ok(recipe);
     }
+
+    @GetMapping
+    public ResponseEntity<Void> getAllRecipes() {
+        recipeServices.getAllRecipes();
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Recipe> editRecipe(@PathVariable int id, @RequestBody Recipe newRecipe) {
+        Recipe recipe = recipeServices.editRecipe(id, newRecipe);
+        if (recipe == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(recipe);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteRecipe(@PathVariable int id) {
+        if (recipeServices.deleteRecipe(id)) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
 }

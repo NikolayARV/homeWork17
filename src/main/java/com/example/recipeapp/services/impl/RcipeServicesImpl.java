@@ -20,4 +20,28 @@ private Integer id =1;
     public Recipe getRecipe(Integer number) {
         return recipeMap.get(number);
     }
+    @Override
+    public Recipe editRecipe(int id, Recipe newRecipe) {
+        if (recipeMap.containsKey(id)) {
+            recipeMap.put(id, newRecipe);
+            return newRecipe;
+        }
+        return null;
+    }
+
+    @Override
+    public boolean deleteRecipe(int id) {
+        if (recipeMap.containsKey(id)) {
+            recipeMap.remove(id);
+            return true;
+        }
+        return false;
+    }
+    @Override
+    public void getAllRecipes() {
+        for (Recipe recipe : recipeMap.values()) {
+            System.out.println(recipe);
+        }
+
+    }
 }

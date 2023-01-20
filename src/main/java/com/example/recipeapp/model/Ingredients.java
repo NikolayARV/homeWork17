@@ -30,6 +30,10 @@ public class Ingredients {
         return amount;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public void setAmount(int amount) {
         this.amount = amount;
     }

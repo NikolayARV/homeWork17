@@ -8,4 +8,10 @@ public interface IngredientsServices {
     Ingredients addIngredient(Ingredients ingredients);
 
     Ingredients getByIdIngredient(int id);
+
+    Ingredients editIngredients(int id, Ingredients newIngredients);
+
+    boolean deleteIngredient(int id);
+
+    void getAllIngredient();
 }
