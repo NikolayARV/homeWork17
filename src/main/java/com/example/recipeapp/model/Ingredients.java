@@ -1,6 +1,7 @@
 package com.example.recipeapp.model;
 
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.util.ArrayList;
@@ -8,11 +9,12 @@ import java.util.HashSet;
 import java.util.List;
 @EqualsAndHashCode
 @ToString
+@NoArgsConstructor
 public class Ingredients {
-    private final String name;
+    private  String name;
     private int amount;
-    private final String measureUnit;
-    private final int  id;
+    private  String measureUnit;
+    private  int  id;
     public static int count = 1;
 
     public Ingredients(String name, int amount, String measureUnit) {
