@@ -13,17 +13,18 @@ public class FileServiceImpl implements FilesService {
     @Value("${path.to.data.file}")
     private String dataFilePath;
     @Value("${name.of.data.file}")
-    private String dataFileName;
+    private String ingredientDataFileName;
     @Value("${name.of.data.file1}")
-    private String dataFileName1;
+    private String recipeDataFileName;
 
     @Override
     public boolean saveToFile(String json) {
         try {
             cleanDataFile();
-            Files.writeString(Path.of(dataFilePath, dataFileName), json);
+            Files.writeString(Path.of(dataFilePath, ingredientDataFileName), json);
             return true;
         } catch (IOException e) {
+            System.out.println("Возникла ошибка ввода-вывода при записи или создании файла");
             return false;
         }
     }
@@ -31,15 +32,16 @@ public class FileServiceImpl implements FilesService {
     @Override
     public String readFromFile() {
         try {
-            return Files.readString(Path.of(dataFilePath, dataFileName));
+            return Files.readString(Path.of(dataFilePath, ingredientDataFileName));
         } catch (IOException e) {
+            System.out.println("Возникла ошибка ввода-вывода при записи или создании файла");
             throw new RuntimeException(e);
         }
     }
 
     private boolean cleanDataFile() {
         try {
-            Path path = Path.of(dataFilePath, dataFileName);
+            Path path = Path.of(dataFilePath, ingredientDataFileName);
             Files.deleteIfExists(path);
             Files.createFile(path);
             return true;
@@ -53,7 +55,7 @@ public class FileServiceImpl implements FilesService {
     public boolean saveToFileRecipe(String json) {
         try {
             cleanDataFileRecipe();
-            Files.writeString(Path.of(dataFilePath, dataFileName1), json);
+            Files.writeString(Path.of(dataFilePath, recipeDataFileName), json);
             return true;
         } catch (IOException e) {
             return false;
@@ -63,7 +65,7 @@ public class FileServiceImpl implements FilesService {
     @Override
     public String readFromFileRecipe() {
         try {
-            return Files.readString(Path.of(dataFilePath, dataFileName1));
+            return Files.readString(Path.of(dataFilePath, recipeDataFileName));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -71,7 +73,7 @@ public class FileServiceImpl implements FilesService {
 
     private boolean cleanDataFileRecipe() {
         try {
-            Path path = Path.of(dataFilePath, dataFileName1);
+            Path path = Path.of(dataFilePath, recipeDataFileName);
             Files.deleteIfExists(path);
             Files.createFile(path);
             return true;
