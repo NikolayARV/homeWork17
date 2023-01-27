@@ -9,8 +9,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.TreeMap;
 
 @Service
@@ -25,7 +23,7 @@ public class IngredientsServicesImpl implements IngredientsServices {
 
     @PostConstruct
     private void init() {
-       readFromFile();
+        readFromFile();
     }
 
     @Override

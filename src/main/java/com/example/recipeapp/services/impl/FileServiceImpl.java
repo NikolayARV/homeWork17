@@ -24,7 +24,7 @@ public class FileServiceImpl implements FilesService {
             Files.writeString(Path.of(dataFilePath, ingredientDataFileName), json);
             return true;
         } catch (IOException e) {
-            System.out.println("Возникла ошибка ввода-вывода при записи или создании файла");
+           e.printStackTrace();
             return false;
         }
     }
@@ -34,7 +34,7 @@ public class FileServiceImpl implements FilesService {
         try {
             return Files.readString(Path.of(dataFilePath, ingredientDataFileName));
         } catch (IOException e) {
-            System.out.println("Возникла ошибка ввода-вывода при записи или создании файла");
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
@@ -58,6 +58,7 @@ public class FileServiceImpl implements FilesService {
             Files.writeString(Path.of(dataFilePath, recipeDataFileName), json);
             return true;
         } catch (IOException e) {
+            e.printStackTrace();
             return false;
         }
     }
@@ -67,6 +68,7 @@ public class FileServiceImpl implements FilesService {
         try {
             return Files.readString(Path.of(dataFilePath, recipeDataFileName));
         } catch (IOException e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }

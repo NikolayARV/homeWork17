@@ -21,7 +21,7 @@ public class Ingredients {
         this.name = name;
         this.amount = amount;
         this.measureUnit = measureUnit;
-        this.id = count++;
+        id = count++;
     }
 
     public String getName() {

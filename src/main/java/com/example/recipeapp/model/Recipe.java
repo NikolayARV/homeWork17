@@ -17,9 +17,9 @@ public class Recipe {
     private Set<Ingredients> ingredients = new HashSet<>();
     private int id;
     public static int count = 1;
-    private Set<String> cookingSteps = new HashSet<>();
+    private List<String> cookingSteps;
 
-    public Recipe(String name, int cookingTime, Set<Ingredients> ingredients, Set<String> cookingSteps) {
+    public Recipe(String name, int cookingTime, Set<Ingredients> ingredients, List<String> cookingSteps) {
         this.name = name;
         this.cookingTime = cookingTime;
         this.ingredients = ingredients;
@@ -43,11 +43,11 @@ public class Recipe {
         this.ingredients = ingredients;
     }
 
-    public Set<String> getCookingSteps() {
+    public List<String> getCookingSteps() {
         return cookingSteps;
     }
 
-    public void setCookingSteps(Set<String> cookingSteps) {
+    public void setCookingSteps(List<String> cookingSteps) {
         this.cookingSteps = cookingSteps;
     }
 }
