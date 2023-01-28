@@ -30,6 +30,7 @@ public class RecipeController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Получение рецепта по id",description = "Можно искать рецепт по id")
     public ResponseEntity<Recipe> getRecipe(@PathVariable int id) {
         Recipe recipe = recipeServices.getRecipe(id);
         if (recipe == null) {

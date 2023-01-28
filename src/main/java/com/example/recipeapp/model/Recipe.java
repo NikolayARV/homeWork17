@@ -1,6 +1,7 @@
 package com.example.recipeapp.model;
 
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.util.ArrayList;
@@ -9,13 +10,14 @@ import java.util.List;
 import java.util.Set;
 @EqualsAndHashCode
 @ToString
+@NoArgsConstructor
 public class Recipe {
-    private final String name;
-    private final int cookingTime;
+    private  String name;
+    private  int cookingTime;
     private Set<Ingredients> ingredients = new HashSet<>();
     private int id;
     public static int count = 1;
-    private List<String> cookingSteps = new ArrayList<>();
+    private List<String> cookingSteps;
 
     public Recipe(String name, int cookingTime, Set<Ingredients> ingredients, List<String> cookingSteps) {
         this.name = name;

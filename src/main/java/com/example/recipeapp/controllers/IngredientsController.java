@@ -1,8 +1,14 @@
 package com.example.recipeapp.controllers;
 
 import com.example.recipeapp.model.Ingredients;
+import com.example.recipeapp.model.Recipe;
 import com.example.recipeapp.services.IngredientsServices;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +40,19 @@ public class IngredientsController {
     }
 
     @GetMapping
+    @Operation(summary = "Получение всех ингридиентов",description = "Можно вывести все ингридиенты")
+    @ApiResponses(value ={
+            @ApiResponse(responseCode = "200",
+                    description = "Список всех ингридиентов был найден",
+                    content = {
+                            @Content(
+                                    mediaType = "aplication/json",
+                                    array = @ArraySchema(schema = @Schema(implementation = Ingredients.class))
+                            )
+                    })
+    })
     public ResponseEntity<Void> getAllIdIngredient() {
+        ingredientsServices.getAllIngredient();
         return ResponseEntity.ok().build();
     }
 

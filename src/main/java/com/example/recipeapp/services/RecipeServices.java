@@ -13,4 +13,5 @@ public interface RecipeServices {
     boolean deleteRecipe(int id);
 
     void getAllRecipes();
+
 }
