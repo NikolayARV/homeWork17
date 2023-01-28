@@ -23,7 +23,7 @@ public class IngredientsServicesImpl implements IngredientsServices {
 
     @PostConstruct
     private void init() {
-        readFromFile();
+       readFromFile();
     }
 
     @Override
