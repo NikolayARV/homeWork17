@@ -4,6 +4,7 @@ import com.example.recipeapp.services.FilesService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -24,7 +25,7 @@ public class FileServiceImpl implements FilesService {
             Files.writeString(Path.of(dataFilePath, ingredientDataFileName), json);
             return true;
         } catch (IOException e) {
-           e.printStackTrace();
+            e.printStackTrace();
             return false;
         }
     }
@@ -32,14 +33,30 @@ public class FileServiceImpl implements FilesService {
     @Override
     public String readFromFile() {
         try {
-            return Files.readString(Path.of(dataFilePath, ingredientDataFileName));
+            Path path = Path.of(dataFilePath, ingredientDataFileName);
+            //if (Files.notExists(path)) {
+            //                Files.createFile(path);
+            //
+            //            }
+            return Files.readString(path);
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
 
-    private boolean cleanDataFile() {
+    @Override
+    public File getIngredientDataFile() {
+        return new File(dataFilePath + "/" + ingredientDataFileName);
+    }
+
+    @Override
+    public File getRecipeDataFile() {
+        return new File(dataFilePath + "/" + recipeDataFileName);
+    }
+
+    @Override
+    public boolean cleanDataFile() {
         try {
             Path path = Path.of(dataFilePath, ingredientDataFileName);
             Files.deleteIfExists(path);
@@ -51,6 +68,7 @@ public class FileServiceImpl implements FilesService {
         }
 
     }
+
     @Override
     public boolean saveToFileRecipe(String json) {
         try {
@@ -73,7 +91,8 @@ public class FileServiceImpl implements FilesService {
         }
     }
 
-    private boolean cleanDataFileRecipe() {
+    @Override
+    public boolean cleanDataFileRecipe() {
         try {
             Path path = Path.of(dataFilePath, recipeDataFileName);
             Files.deleteIfExists(path);
@@ -84,5 +103,5 @@ public class FileServiceImpl implements FilesService {
             return false;
         }
     }
-    }
+}
 
