@@ -50,4 +50,12 @@ public class Recipe {
     public void setCookingSteps(List<String> cookingSteps) {
         this.cookingSteps = cookingSteps;
     }
+
+    @Override
+    public String toString() {
+        return "Recipe{" +
+                 ingredients + cookingSteps+
+                '}';
+    }
+
 }

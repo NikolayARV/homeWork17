@@ -43,4 +43,9 @@ public class Ingredients {
     public String getMeasureUnit() {
         return measureUnit;
     }
+
+    @Override
+    public String toString() {
+        return name + " - " + amount + " " + measureUnit;
+    }
 }

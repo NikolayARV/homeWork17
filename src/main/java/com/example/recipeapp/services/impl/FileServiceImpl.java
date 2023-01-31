@@ -34,10 +34,6 @@ public class FileServiceImpl implements FilesService {
     public String readFromFile() {
         try {
             Path path = Path.of(dataFilePath, ingredientDataFileName);
-            //if (Files.notExists(path)) {
-            //                Files.createFile(path);
-            //
-            //            }
             return Files.readString(path);
         } catch (IOException e) {
             e.printStackTrace();
@@ -49,6 +45,8 @@ public class FileServiceImpl implements FilesService {
     public File getIngredientDataFile() {
         return new File(dataFilePath + "/" + ingredientDataFileName);
     }
+
+
 
     @Override
     public File getRecipeDataFile() {
@@ -101,6 +99,15 @@ public class FileServiceImpl implements FilesService {
         } catch (IOException e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    @Override
+    public Path createTempFile(String suffix) {
+        try {
+            return Files.createTempFile(Path.of(dataFilePath), "tempFile", suffix);
+        } catch (IOException e) {
+            throw new RuntimeException();
         }
     }
 }

@@ -23,7 +23,11 @@ public class IngredientsServicesImpl implements IngredientsServices {
 
     @PostConstruct
     private void init() {
-       readFromFile();
+        try {
+            readFromFile();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -68,7 +72,7 @@ public class IngredientsServicesImpl implements IngredientsServices {
     }
 
 
-    public void saveToFile() {
+    private void saveToFile() {
         try {
             String json = new ObjectMapper().writeValueAsString(ingredientsMap);
             filesService.saveToFile(json);
@@ -78,7 +82,7 @@ public class IngredientsServicesImpl implements IngredientsServices {
     }
 
 
-    public void readFromFile() {
+    private void readFromFile() {
 
         try {
             String json = filesService.readFromFile();
