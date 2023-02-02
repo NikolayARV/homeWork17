@@ -1,15 +1,14 @@
 package com.example.recipeapp.model;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 @EqualsAndHashCode
-@ToString
+@Getter
 @NoArgsConstructor
 public class Recipe {
     private  String name;
@@ -27,29 +26,13 @@ public class Recipe {
         this.id=count++;
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public int getCookingTime() {
-        return cookingTime;
-    }
 
     public Set<Ingredients> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(Set<Ingredients> ingredients) {
-        this.ingredients = ingredients;
-    }
 
-    public List<String> getCookingSteps() {
-        return cookingSteps;
-    }
-
-    public void setCookingSteps(List<String> cookingSteps) {
-        this.cookingSteps = cookingSteps;
-    }
 
     @Override
     public String toString() {

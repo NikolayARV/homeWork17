@@ -70,11 +70,6 @@ public class RecipeController {
     }
 
 
-
-   public ResponseEntity<Void> getAllRecipes() {
-           recipeServices.getAllRecipes();
-           return ResponseEntity.ok().build();
-        }
     @PutMapping("/{id}")
     public ResponseEntity<Recipe> editRecipe(@PathVariable int id, @RequestBody Recipe newRecipe) {
         Recipe recipe = recipeServices.editRecipe(id, newRecipe);
