@@ -9,8 +9,16 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 @RestController
 @RequestMapping("/recipe")
@@ -41,20 +49,26 @@ public class RecipeController {
 
     @GetMapping
     @Operation(summary = "Получение всех рецептов", description = "Можно получить список всех рецептов")
-    @ApiResponses(value ={
-            @ApiResponse(responseCode = "200",
-            description = "Список всех рецептов был найден",
-            content = {
-                    @Content(
-                            mediaType = "aplication/json",
-                            array = @ArraySchema(schema = @Schema(implementation = Recipe.class))
-                    )
-            })
-    })
-    public ResponseEntity<Void> getAllRecipes() {
-        recipeServices.getAllRecipes();
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Object> getRecipeMap() {
+        try {
+            Path path = recipeServices.getRecipeMap();
+            if (Files.size(path) == 0) {
+                return ResponseEntity.noContent().build();
+            }
+            InputStreamResource resource = new InputStreamResource(new FileInputStream(path.toFile()));
+            return ResponseEntity.ok()
+                    .contentType(MediaType.TEXT_PLAIN)
+                    .contentLength(Files.size(path))
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"Recipes.txt\"")
+                    .body(resource);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body(e.toString());
+        }
+
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<Recipe> editRecipe(@PathVariable int id, @RequestBody Recipe newRecipe) {

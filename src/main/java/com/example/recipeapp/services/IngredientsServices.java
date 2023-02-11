@@ -15,7 +15,5 @@ public interface IngredientsServices {
 
     void getAllIngredient();
 
-    void saveToFile();
 
-    void readFromFile();
 }

@@ -1,6 +1,5 @@
 package com.example.recipeapp.services.impl;
 
-import com.example.recipeapp.model.Ingredients;
 import com.example.recipeapp.model.Recipe;
 import com.example.recipeapp.services.FilesService;
 import com.example.recipeapp.services.RecipeServices;
@@ -10,6 +9,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.io.IOException;
+import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.TreeMap;
 
 @Service
@@ -25,7 +29,11 @@ public class RecipeServicesImpl implements RecipeServices {
 
     @PostConstruct
     private void init() {
-        readFromFileRecipe();
+        try {
+            readFromFileRecipe();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -70,7 +78,24 @@ public class RecipeServicesImpl implements RecipeServices {
 
     }
 
-    public void saveToFileRecipe() {
+    @Override
+    public Path getRecipeMap() throws IOException {
+        Path path = filesService.createTempFile("Recipes");
+        for (Recipe recipe : recipeMap.values()) {
+            try (Writer writer = Files.newBufferedWriter(path, StandardOpenOption.APPEND)) {
+                writer.append(recipe.getName() + ". ");
+                writer.append("\n");
+                writer.append("Время приготовления: " + recipe.getCookingTime() + " минут. ");
+                writer.append("\n");
+                writer.append("Ингридиенты:" + "\n" + recipe.getIngredients());
+                writer.append("\n");
+                writer.append("Инструкция приготовления:" + "\n" + recipe.getCookingSteps());
+            }
+        }
+        return path;
+    }
+
+    private void saveToFileRecipe() {
         try {
             String json = new ObjectMapper().writeValueAsString(recipeMap);
             filesService.saveToFileRecipe(json);
@@ -80,7 +105,7 @@ public class RecipeServicesImpl implements RecipeServices {
     }
 
 
-    public void readFromFileRecipe() {
+    private void readFromFileRecipe() {
 
         try {
             String json = filesService.readFromFileRecipe();
